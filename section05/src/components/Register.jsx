@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 // 간단한 회원가입 폼
 // 1. 이름
 // 2. 생년월일
@@ -13,9 +13,13 @@ const Register = () => {
     bio: "",
   });
 
+  const countRef = useRef(0);
+  const inputRef = useRef();
+
   // 통합 이벤트 핸들러
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
+    // countRef.current++;
+
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -23,37 +27,17 @@ const Register = () => {
     });
   };
 
-  // const onChangeName = (e) => {
-  //   setInput({
-  //     ...input, // 관련없는 값은 유지하게 spread 연산자 사용
-  //     name: e.target.value,
-  //   });
-  // };
-
-  // const onChangeBirth = (e) => {
-  //   setInput({
-  //     ...input,
-  //     birth: e.target.value,
-  //   });
-  // };
-
-  // const onChangeCountry = (e) => {
-  //   setInput({
-  //     ...input,
-  //     country: e.target.value,
-  //   });
-  // };
-
-  // const onChangeBio = (e) => {
-  //   setInput({
-  //     ...input,
-  //     bio: e.target.value,
-  //   });
-  // };
+  const onsubmit = () => {
+    if (input.name === "") {
+      // 이름을 입력하는 DOM 요소 포커스
+      inputRef.current.focus();
+    }
+  };
   return (
     <div>
       <div>
         <input
+          ref={inputRef}
           name="name" // 통합이벤트 핸들러로 추가해줌
           value={input.name}
           onChange={onChange} // onChange 통합이벤트핸들러
@@ -80,6 +64,8 @@ const Register = () => {
       <div>
         <textarea name="bio" value={input.bio} onChange={onChange} />
       </div>
+
+      <button onClick={onsubmit}>제출</button>
     </div>
   );
 };
