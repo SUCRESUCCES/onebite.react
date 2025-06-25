@@ -39,11 +39,35 @@ function App() {
 
     setTodos([newTodo, ...todos]); // 새로운 todo를 기존 배열 앞에 추가
   };
+
+  const onUpdate = (targetId) => {
+    // todos State의 값들 중에
+    // targetId와 일치하는 id를 갖는 투두 아이템의 isDone 변경
+
+    // 인수 : todos 배열에서 targetId와 일치하는 id를 갖는 요소의 데이터만 딱 바꾼 새로운 배열
+    setTodos(
+      todos.map((todo) =>
+        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+    // 위에서 화살표함수 문법으로 간결하게 작성
+    // {
+    //   if (todo.id === targetId) {
+    //     return {
+    //       ...todo,
+    //       isDone: !todo.isDone,
+    //     };
+    //   }
+    //   return todo;
+    // })
+    // );
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} />
+      <List todos={todos} onUpdate={onUpdate} />
     </div>
   );
 }
