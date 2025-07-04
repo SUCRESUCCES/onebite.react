@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Diary from "./pages/Diary";
 import New from "./pages/New";
 import Notfound from "./pages/Notfound";
+import Button from "./component/Button";
+import Header from "./component/Header";
 
 import { getEmotionImage } from "./util/get-emotion-image";
 
@@ -18,29 +20,35 @@ function App() {
   };
   return (
     <>
+      <Header
+        title={"Header"}
+        leftChild={<Button text={"Left"} />}
+        rightChild={<Button text={"Right"} />}
+      />
+      {/* DEFAULT 버튼은 생략 가능 / undefined로 뜨지만 기본 css 적용됨*/}
+      <Button
+        text={"123"}
+        onClick={() => {
+          console.log("123번 버튼 클릭!");
+        }}
+      />
+      <Button
+        text={"123"}
+        type={"POSITIVE"}
+        onClick={() => {
+          console.log("123번 버튼 클릭!");
+        }}
+      />
+      <Button
+        text={"123"}
+        type={"NEGATIVE"}
+        onClick={() => {
+          console.log("123번 버튼 클릭!");
+        }}
+      />
       {/* public 폴더에 넣은 것
       이미지 최적화 하지않을거면 이미지를 public에 넣어도 상관 없음! */}
-      {/* <div>
-        <img src={"/emotion1.png"} />
-        <img src={"/emotion2.png"} />
-        <img src={"/emotion3.png"} />
-        <img src={"/emotion4.png"} />
-        <img src={"/emotion5.png"} />
-      </div> */}
-      {/* import로 src의 assets에서 가져온 것! */}
-      <div>
-        <img src={getEmotionImage(1)} />
-        <img src={getEmotionImage(2)} />
-        <img src={getEmotionImage(3)} />
-        <img src={getEmotionImage(4)} />
-        <img src={getEmotionImage(5)} />
-      </div>
-      <div>
-        <Link to={"/"}>Home</Link>
-        <Link to={"/new"}>New</Link>
-        <Link to={"/diary"}>Diary</Link>
-      </div>
-      <button onClick={onClickButton}>New 페이지로 이동</button>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
