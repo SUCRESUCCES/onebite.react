@@ -1,58 +1,47 @@
 import "./App.css";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useReducer } from "react";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Diary from "./pages/Diary";
 import New from "./pages/New";
+import Edit from "./pages/Edit";
 import Notfound from "./pages/Notfound";
-import Button from "./component/Button";
-import Header from "./component/Header";
 
-import { getEmotionImage } from "./util/get-emotion-image";
+const mockData = [
+  {
+    id: 1,
+    createDate: new Date().getTime(),
+    emotionId: 1,
+    content: "1번 일기 내용",
+  },
+  {
+    id: 2,
+    createDate: new Date().getTime(),
+    emotionId: 2,
+    content: "2번 일기 내용",
+  },
+  {
+    id: 3,
+    createDate: new Date().getTime(),
+    emotionId: 3,
+    content: "3번 일기 내용",
+  },
+];
 
-// 1. "/" : 모든 일기를 조회하는 Home 페이지
-// 2. "/new" : 새로운 일기를 작성하는 New 페이지
-// 3. "/diary" : 일기를 상세히 조회하는 Diary 페이지
+function reducer(state, action) {
+  return state;
+}
+
 function App() {
-  const nav = useNavigate();
+  const [data, dispatch] = useReducer(reducer, [mockData]);
 
-  const onClickButton = () => {
-    nav("/new");
-  };
   return (
     <>
-      <Header
-        title={"Header"}
-        leftChild={<Button text={"Left"} />}
-        rightChild={<Button text={"Right"} />}
-      />
-      {/* DEFAULT 버튼은 생략 가능 / undefined로 뜨지만 기본 css 적용됨*/}
-      <Button
-        text={"123"}
-        onClick={() => {
-          console.log("123번 버튼 클릭!");
-        }}
-      />
-      <Button
-        text={"123"}
-        type={"POSITIVE"}
-        onClick={() => {
-          console.log("123번 버튼 클릭!");
-        }}
-      />
-      <Button
-        text={"123"}
-        type={"NEGATIVE"}
-        onClick={() => {
-          console.log("123번 버튼 클릭!");
-        }}
-      />
-      {/* public 폴더에 넣은 것
-      이미지 최적화 하지않을거면 이미지를 public에 넣어도 상관 없음! */}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
         <Route path="/diary/:id" element={<Diary />} />
+        <Route path="/edit/:id" element={<Edit />} />
         <Route path="*" element={<Notfound />} />
       </Routes>
     </>
