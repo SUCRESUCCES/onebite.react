@@ -1,9 +1,9 @@
 import { useState, useContext } from "react"; // 가변데이터 state
 import { DiaryStateContext } from "../App";
 
-import Header from "../component/Header";
-import Button from "../component/Button";
-import DiaryList from "../component/DiaryList";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import DiaryList from "../components/DiaryList";
 
 const getMontlyData = (pivotDate, data) => {
   const beginTime = new Date(
